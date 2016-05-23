@@ -3,6 +3,7 @@ Sinatra
 
 Brought to you by Lighthouse Labs
 
+
 ## Getting Started
 
 1. `bundle install`

@@ -24,31 +24,30 @@ end
 
 desc "store tweets in database"
 task "db:extracttweets" do
-["db/tweets1.json", "db/tweets2.json", "db/tweets3.json"].each do |file| 
-json_file = File.read(file)
-json_data = JSON.parse(json_file) 
-  json_data.each do |tweet|
-    puts tweet
-   Tweet.create(mp_id: tweet['mp_id'], text: tweet['text'], quoted_status: tweet['quoted_status'])
- end
-end
+  # for each file of tweets
+  ["db/tweets1.json", "db/tweets2.json", "db/tweets3.json"].each do |file|
+    # read the file
+    json_file = File.read(file)
+    # parse data into JSON
+    json_data = JSON.parse(json_file)
+    # for each tweet
+    json_data.each do |tweet|
+      Tweet.create({mp_id: tweet['mp_id'], text: tweet['text'], quoted_status: tweet['quoted_status']})
+    end
+  end
 end
 
 desc "calculate scores"
 task "db:calculatescore" do
-  distinct_mps = Tweet.select(:mp_id).distinct
-  # binding.pry
-  hash = []
-  distinct_mps.each do |mp|
-    score = Tweet.score(mp)
-    # binding.pry
-    hash.push ({
-      "mp_id": mp,
-      "score": score
+  distinct_mp_ids = Tweet.select(:mp_id).distinct.pluck(:mp_id)
+  data = []
+  distinct_mp_ids.each do |mp_id|
+    score = Tweet.score(mp_id)
+    puts score
+    data.push({
+      mp_id: mp_id,
+      score: score
     })
- end
-puts hash
+  end
+  puts data
 end
-
-
-# [{mpid: 12412, score: 0.53},{mpid: 43113,score: 0.9}…]

@@ -11,6 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160523175117) do
+
+  create_table "tweets", force: :cascade do |t|
+    t.integer "mp_id"
+    t.string  "text"
+    t.string  "quoted_status"
+  end
+
+  add_index "tweets", ["mp_id"], name: "index_tweets_on_mp_id"
 
 end

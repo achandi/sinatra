@@ -2,7 +2,7 @@ class Tweet < ActiveRecord::Base
 
   def self.score(mp)
     mps_tweets = Tweet.where(mp_id: mp)
-    binding.pry
+    # binding.pry
     participation_count = 0
     mps_tweets.each do |tweet|
       if tweet.text[0] == '@' || tweet.text[0] == '.' && tweet.text[1] == '@'

@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523175117) do
+ActiveRecord::Schema.define(version: 20160525054938) do
+
+  create_table "committees", force: :cascade do |t|
+    t.string "mp_id"
+    t.string "committee_title"
+  end
+
+  create_table "sponsored_bills", force: :cascade do |t|
+    t.string  "billInfo"
+    t.string  "mpName"
+    t.string  "mp_id"
+    t.string  "billNumber"
+    t.string  "descriptionEN"
+    t.string  "descriptionFR"
+    t.string  "dateIntroduced"
+    t.integer "legisinfoID"
+  end
 
   create_table "tweets", force: :cascade do |t|
     t.integer "mp_id"
@@ -20,5 +36,27 @@ ActiveRecord::Schema.define(version: 20160523175117) do
   end
 
   add_index "tweets", ["mp_id"], name: "index_tweets_on_mp_id"
+
+  create_table "voting_mp_records", force: :cascade do |t|
+    t.string "mp_id"
+    t.string "mp_name"
+    t.string "vote"
+    t.string "bill_vote"
+    t.string "mp_party"
+  end
+
+  create_table "voting_record", force: :cascade do |t|
+    t.string "billInfo"
+    t.string "mp_name"
+    t.string "vote"
+    t.string "bill_vote"
+  end
+
+  create_table "voting_records", force: :cascade do |t|
+    t.string "billInfo"
+    t.string "mp_name"
+    t.string "vote"
+    t.string "bill_vote"
+  end
 
 end
